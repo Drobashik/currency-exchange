@@ -43,7 +43,7 @@ export class ConverterComponent implements OnInit{
     this.firstUserInput(inputValue)
   }
 
-  clear(input: HTMLInputElement, event: any) {
+  clear(input: HTMLInputElement) {
     input.value = ''
   }
 
@@ -64,7 +64,7 @@ export class ConverterComponent implements OnInit{
     Array.from(select2.options).forEach(e => {
       if(e.selected)
         e.selected = false
-        
+
       if(e.value === this.keySecond)
         e.selected = true
     })
