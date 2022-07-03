@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CurrencyService} from '../shared/currency.service';
 
 @Component({
@@ -13,9 +13,6 @@ export class ConverterComponent implements OnInit{
 
   keyFirst: string = 'EUR';
   keySecond: string = 'EUR';
-
-  isSelectedFirst: boolean = false;
-  isSelectedSecond: boolean = false;
 
   keys: string[] = ['EUR', 'UAH', 'USD']
 
@@ -48,8 +45,6 @@ export class ConverterComponent implements OnInit{
 
   clear(input: HTMLInputElement, event: any) {
     input.value = ''
-
-    console.log(event.target);
   }
 
   changeKey(value1: string, value2: string, select1: HTMLSelectElement, select2: HTMLSelectElement) {
