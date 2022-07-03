@@ -21,15 +21,21 @@ export class ConverterComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  firstUserInput(value: string) {
-    if(!value) return
+  firstUserInput(value: string, input?: HTMLInputElement) {
+    if(!value) {
+      input!.value = ''
+      return
+    }
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       this.resultFirst = data.result * Number(value);
     })
   }
 
-  secondUserInput(value: string) {
-    if(!value) return
+  secondUserInput(value: string, input?: HTMLInputElement) {
+    if(!value) {
+      input!.value = ''
+      return
+    } 
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       this.resultSecond = Number(value) / data.result
     })
@@ -45,8 +51,9 @@ export class ConverterComponent implements OnInit{
     this.firstUserInput(inputValue)
   }
 
-  clear(input: HTMLInputElement) {
+  clear(input: HTMLInputElement, input2: HTMLInputElement) {
     input.value = ''
+    input2.value = ''
   }
 
   changeKey(value1: string, value2: string, select1: HTMLSelectElement, select2: HTMLSelectElement) {
