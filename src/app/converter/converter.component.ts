@@ -26,16 +26,16 @@ export class ConverterComponent implements OnInit{
 
   userInput(event: Event) {
     const input = (<HTMLInputElement>event.target);
-    if(!input.value) {
-      input.value = ''
-      return;
-    }
     this.convertCurrencyTemp(input)
   }
 
 
   convertCurrencyTemp(input: HTMLInputElement) {
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
+      if(!input.value) {
+        input.value = '';
+        return
+      }
       if(input.className === 'input-first') {
         this.resultFirst = data.result * Number(input.value)
       } else {
@@ -56,9 +56,9 @@ export class ConverterComponent implements OnInit{
     }
   }
 
-  clear(input: HTMLInputElement, input2: HTMLInputElement) {
-    input.value = ''
-    input2.value = ''
+  clear() {
+    this.inputFirst.nativeElement.value = ''
+    this.inputSecond.nativeElement.value = ''
   }
 
   changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {

@@ -6,7 +6,7 @@
                 <input class="input-first" #input1 type="number" 
                 [value]="resultSecond?.toFixed(2)"
                 (input)="userInput($event)"
-                (click)="clear(input1, input2)">
+                (click)="clear()">
                 <select class="select-first" #select1 id="currency" 
                 (change)="selectedCurrency($event)">
                     <option [value]="key" *ngFor="let key of keys">{{key}}</option>
@@ -16,7 +16,7 @@
                 <input class="input-second" #input2 type="number" 
                 [value]="resultFirst?.toFixed(2)" 
                 (input)="userInput($event)"
-                (click)="clear(input2, input1)">
+                (click)="clear()">
                 <select class="select-second" #select2 id="currency2"
                 (change)="selectedCurrency($event)">
                     <option [value]="key" *ngFor="let key of keys">{{key}}</option>
