@@ -29,13 +29,12 @@ export class ConverterComponent implements OnInit{
     this.convertCurrencyTemp(input)
   }
 
-
   convertCurrencyTemp(input: HTMLInputElement) {
+    if(!input.value) {
+      input.value = '';
+      return
+    }
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
-      if(!input.value) {
-        input.value = '';
-        return
-      }
       if(input.className === 'input-first') {
         this.resultFirst = data.result * Number(input.value)
       } else {
@@ -52,7 +51,6 @@ export class ConverterComponent implements OnInit{
     } else {
       this.keySecond = select.value;
       this.convertCurrencyTemp(this.inputFirst.nativeElement)
-
     }
   }
 
