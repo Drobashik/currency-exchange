@@ -22,13 +22,14 @@ export class ConverterComponent implements OnInit{
   }
 
   firstUserInput(value: string) {
+    if(!value) return
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
-      if(!value) return
       this.resultFirst = data.result * Number(value);
     })
   }
 
   secondUserInput(value: string) {
+    if(!value) return
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       this.resultSecond = Number(value) / data.result
     })
