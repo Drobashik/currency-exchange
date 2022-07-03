@@ -31,8 +31,7 @@ export class ConverterComponent implements OnInit{
 
   convertCurrencyTemp(input: HTMLInputElement) {
     if(!input.value) {
-      this.inputFirst.nativeElement.value = ''
-      this.inputSecond.nativeElement.value = ''
+      this.clear()
       return
     }
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
