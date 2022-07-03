@@ -1,0 +1,14 @@
+<header>
+  <div class="head container">
+    <div class="logo">
+      <h1>Currency Exchange</h1>
+    </div>
+    <div class="currency">
+      <h1>{{currencyArrayValues[0] | currency: 'USD'}}</h1>
+      <h1>{{currencyArrayValues[1] | currency: 'EUR'}}</h1>
+    </div>
+  </div>
+</header>
+<section>
+  <app-converter></app-converter>
+</section>
