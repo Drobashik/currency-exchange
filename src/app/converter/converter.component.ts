@@ -55,20 +55,18 @@ export class ConverterComponent implements OnInit{
     this.keySecond = base;
 
     Array.from(select1.options).forEach(e => {
-      if(e.selected) {
+      if(e.selected)
         e.selected = false
-      }
-      if(e.value === this.keyFirst) {
+
+      if(e.value === this.keyFirst)
         e.selected = true
-      }
     })
     Array.from(select2.options).forEach(e => {
-      if(e.selected) {
+      if(e.selected)
         e.selected = false
-      }
-      if(e.value === this.keySecond) {
+        
+      if(e.value === this.keySecond)
         e.selected = true
-      }
     })
     this.firstUserInput(value2)
     this.secondUserInput(value1)
