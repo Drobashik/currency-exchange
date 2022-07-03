@@ -3,28 +3,28 @@
     <div class="box">
         <div class="input-currency">
             <div class="input">
-                <input #input1 type="number" 
+                <input class="input-first" #input1 type="number" 
                 [value]="resultSecond?.toFixed(2)"
-                (input)="firstUserInput(input1.value, input2)"
+                (input)="userInput($event)"
                 (click)="clear(input1, input2)">
-                <select #select1 id="currency" 
-                (change)="selectedCurrency1(select1.value, input2.value)">
+                <select class="select-first" #select1 id="currency" 
+                (change)="selectedCurrency($event)">
                     <option [value]="key" *ngFor="let key of keys">{{key}}</option>
                 </select>
             </div>
             <div class="input">
-                <input #input2 type="number" 
+                <input class="input-second" #input2 type="number" 
                 [value]="resultFirst?.toFixed(2)" 
-                (input)="secondUserInput(input2.value, input1)"
+                (input)="userInput($event)"
                 (click)="clear(input2, input1)">
-                <select #select2 id="currency2"
-                (change)="selectedCurrency2(select2.value, input1.value)">
+                <select class="select-second" #select2 id="currency2"
+                (change)="selectedCurrency($event)">
                     <option [value]="key" *ngFor="let key of keys">{{key}}</option>
                 </select>
             </div>
         </div>
         <div class="btn">
-            <button (click)="changeKey(input1.value, input2.value, select1, select2)">&duarr;</button>
+            <button (click)="changeKey(select1, select2)">&duarr;</button>
         </div>
     </div>
 </div>

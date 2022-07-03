@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CurrencyService} from '../shared/currency.service';
 
 @Component({
@@ -11,8 +11,11 @@ export class ConverterComponent implements OnInit{
   resultFirst: number;
   resultSecond: number;
 
-  keyFirst: string = 'EUR';
-  keySecond: string = 'EUR';
+  keyFirst: string;
+  keySecond: string;
+
+  @ViewChild('input1') inputFirst: ElementRef;
+  @ViewChild('input2') inputSecond: ElementRef;
 
   keys: string[] = ['EUR', 'UAH', 'USD']
 
@@ -21,34 +24,36 @@ export class ConverterComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  firstUserInput(value: string, input?: HTMLInputElement) {
-    if(!value) {
-      input!.value = ''
-      return
+  userInput(event: Event) {
+    const input = (<HTMLInputElement>event.target);
+    if(!input.value) {
+      input.value = ''
+      return;
     }
+    this.convertCurrencyTemp(input)
+  }
+
+
+  convertCurrencyTemp(input: HTMLInputElement) {
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
-      this.resultFirst = data.result * Number(value);
+      if(input.className === 'input-first') {
+        this.resultFirst = data.result * Number(input.value)
+      } else {
+        this.resultSecond = Number(input.value) / data.result;
+      }
     })
   }
 
-  secondUserInput(value: string, input?: HTMLInputElement) {
-    if(!value) {
-      input!.value = ''
-      return
-    } 
-    this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
-      this.resultSecond = Number(value) / data.result
-    })
-  }
+  selectedCurrency(event: Event) {
+    const select = (<HTMLSelectElement>event.target)
+    if(select.className === 'select-first') {
+      this.keyFirst = select.value;
+      this.convertCurrencyTemp(this.inputSecond.nativeElement)
+    } else {
+      this.keySecond = select.value;
+      this.convertCurrencyTemp(this.inputFirst.nativeElement)
 
-  selectedCurrency1(value: string, inputValue: string) {
-    this.keyFirst = value
-    this.secondUserInput(inputValue)
-  }
-
-  selectedCurrency2(value: string, inputValue: string) {
-    this.keySecond = value;
-    this.firstUserInput(inputValue)
+    }
   }
 
   clear(input: HTMLInputElement, input2: HTMLInputElement) {
@@ -56,7 +61,7 @@ export class ConverterComponent implements OnInit{
     input2.value = ''
   }
 
-  changeKey(value1: string, value2: string, select1: HTMLSelectElement, select2: HTMLSelectElement) {
+  changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
     let base = this.keyFirst;
     let toConvert = this.keySecond;
 
@@ -69,15 +74,19 @@ export class ConverterComponent implements OnInit{
 
       if(e.value === this.keyFirst)
         e.selected = true
-    })
-    Array.from(select2.options).forEach(e => {
-      if(e.selected)
+      })
+      Array.from(select2.options).forEach(e => {
+        if(e.selected)
         e.selected = false
-
-      if(e.value === this.keySecond)
+        
+        if(e.value === this.keySecond)
         e.selected = true
-    })
-    this.firstUserInput(value2)
-    this.secondUserInput(value1)
+      })
+
+      base = this.inputFirst.nativeElement.value
+      toConvert = this.inputSecond.nativeElement.value
+
+      this.inputFirst.nativeElement.value = toConvert;
+      this.inputSecond.nativeElement.value = base;
   }
 }
