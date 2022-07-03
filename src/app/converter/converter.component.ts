@@ -17,7 +17,7 @@ export class ConverterComponent implements OnInit{
   @ViewChild('input1') inputFirst: ElementRef;
   @ViewChild('input2') inputSecond: ElementRef;
 
-  keys: string[] = ['EUR', 'UAH', 'USD']
+  keys: string[] = ['EUR', 'UAH', 'USD'];
 
   constructor(private currencyService: CurrencyService) { }
 
@@ -26,17 +26,17 @@ export class ConverterComponent implements OnInit{
 
   userInput(event: Event) {
     const input = (<HTMLInputElement>event.target);
-    this.convertCurrencyTemp(input)
+    this.convertCurrencyTemp(input);
   }
 
   convertCurrencyTemp(input: HTMLInputElement) {
     if(!input.value) {
-      this.clear()
-      return
+      this.clear();
+      return;
     }
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       if(input.className === 'input-first') {
-        this.resultFirst = data.result * Number(input.value)
+        this.resultFirst = data.result * Number(input.value);
       } else {
         this.resultSecond = Number(input.value) / data.result;
       }
@@ -47,16 +47,16 @@ export class ConverterComponent implements OnInit{
     const select = (<HTMLSelectElement>event.target)
     if(select.className === 'select-first') {
       this.keyFirst = select.value;
-      this.convertCurrencyTemp(this.inputSecond.nativeElement)
+      this.convertCurrencyTemp(this.inputSecond.nativeElement);
     } else {
       this.keySecond = select.value;
-      this.convertCurrencyTemp(this.inputFirst.nativeElement)
+      this.convertCurrencyTemp(this.inputFirst.nativeElement);
     }
   }
 
   clear() {
-    this.inputFirst.nativeElement.value = ''
-    this.inputSecond.nativeElement.value = ''
+    this.inputFirst.nativeElement.value = '';
+    this.inputSecond.nativeElement.value = '';
   }
 
   changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
@@ -68,21 +68,21 @@ export class ConverterComponent implements OnInit{
 
     Array.from(select1.options).forEach(e => {
       if(e.selected)
-        e.selected = false
+        e.selected = false;
 
       if(e.value === this.keyFirst)
-        e.selected = true
+        e.selected = true;
       })
       Array.from(select2.options).forEach(e => {
         if(e.selected)
-        e.selected = false
+        e.selected = false;
         
         if(e.value === this.keySecond)
-        e.selected = true
+        e.selected = true;
       })
 
-      base = this.inputFirst.nativeElement.value
-      toConvert = this.inputSecond.nativeElement.value
+      base = this.inputFirst.nativeElement.value;
+      toConvert = this.inputSecond.nativeElement.value;
 
       this.inputFirst.nativeElement.value = toConvert;
       this.inputSecond.nativeElement.value = base;
