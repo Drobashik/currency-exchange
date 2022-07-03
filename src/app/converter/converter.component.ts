@@ -23,6 +23,7 @@ export class ConverterComponent implements OnInit{
 
   firstUserInput(value: string) {
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
+      if(!value) return
       this.resultFirst = data.result * Number(value);
     })
   }
