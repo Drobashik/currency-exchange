@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CurrencyService} from '../shared/currency.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { CurrencyService} from '../shared/currency.service';
   templateUrl: './converter.component.html',
   styleUrls: ['./converter.component.scss']
 })
-export class ConverterComponent implements OnInit{
+export class ConverterComponent {
 
   resultFirst: number;
   resultSecond: number;
@@ -21,7 +21,12 @@ export class ConverterComponent implements OnInit{
 
   constructor(private currencyService: CurrencyService) { }
 
-  ngOnInit(): void {
+  keyPressNumbers(event: KeyboardEvent) {
+    const charCode = event.keyCode;
+    if(charCode === 8) return
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    }
   }
 
   userInput(event: Event) {
@@ -54,37 +59,23 @@ export class ConverterComponent implements OnInit{
     }
   }
 
+  changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
+    const selectArray = [...Array.from(select1.options), ...Array.from(select2.options)];
+    const base = this.inputFirst.nativeElement.value;
+    const toConvert = this.inputSecond.nativeElement.value;
+    
+    this.inputFirst.nativeElement.value = toConvert;
+    this.inputSecond.nativeElement.value = base;
+    
+    selectArray.forEach(e => {
+      if(e.selected && e.value === this.keyFirst ||  e.value === this.keySecond) {
+        e.selected = !e.selected;
+      }
+    })
+  }
+  
   clear() {
     this.inputFirst.nativeElement.value = '';
     this.inputSecond.nativeElement.value = '';
-  }
-
-  changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
-    let base = this.keyFirst;
-    let toConvert = this.keySecond;
-
-    this.keyFirst = toConvert;
-    this.keySecond = base;
-
-    Array.from(select1.options).forEach(e => {
-      if(e.selected)
-        e.selected = false;
-
-      if(e.value === this.keyFirst)
-        e.selected = true;
-      })
-      Array.from(select2.options).forEach(e => {
-        if(e.selected)
-        e.selected = false;
-        
-        if(e.value === this.keySecond)
-        e.selected = true;
-      })
-
-      base = this.inputFirst.nativeElement.value;
-      toConvert = this.inputSecond.nativeElement.value;
-
-      this.inputFirst.nativeElement.value = toConvert;
-      this.inputSecond.nativeElement.value = base;
   }
 }
