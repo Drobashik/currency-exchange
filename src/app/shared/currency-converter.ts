@@ -1,4 +1,4 @@
-export interface CurrencyConverter {
+export interface ICurrencyConverter {
     result: number;
     rates: {
         UAH: number;

@@ -7,9 +7,8 @@ import { CurrencyService } from './shared/currency.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  keysCurrencyArray: string[] = ['USD', 'EUR', 'UAH']
+  keysCurrencyArray: string[] = ['EUR', 'USD']
   currencyArrayValues: number[] = [0, 0];
-  
   
   constructor(private currencyService: CurrencyService) {}
 

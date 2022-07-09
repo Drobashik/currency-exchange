@@ -42,9 +42,9 @@ export class ConverterComponent {
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       if(input.className === 'input-first') {
         this.resultFirst = data.result * Number(input.value);
-      } else {
-        this.resultSecond = Number(input.value) / data.result;
+        return;
       }
+        this.resultSecond = Number(input.value) / data.result;
     })
   }
 
@@ -53,10 +53,10 @@ export class ConverterComponent {
     if(select.className === 'select-first') {
       this.keyFirst = select.value;
       this.convertCurrencyTemp(this.inputSecond.nativeElement);
-    } else {
+      return;
+    }
       this.keySecond = select.value;
       this.convertCurrencyTemp(this.inputFirst.nativeElement);
-    }
   }
 
   changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
