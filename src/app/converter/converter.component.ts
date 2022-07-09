@@ -37,7 +37,7 @@ export class ConverterComponent {
   convertCurrencyTemp(input: HTMLInputElement) {
     if(!input.value) {
       this.clear();
-      return;
+      return
     }
     this.currencyService.convertCurrency(this.keyFirst, this.keySecond).subscribe(data => {
       if(input.className === 'input-first') {
@@ -61,6 +61,7 @@ export class ConverterComponent {
 
   changeKey(select1: HTMLSelectElement, select2: HTMLSelectElement) {
     const selectArray = [...Array.from(select1.options), ...Array.from(select2.options)];
+    
     const base = this.inputFirst.nativeElement.value;
     const toConvert = this.inputSecond.nativeElement.value;
     
